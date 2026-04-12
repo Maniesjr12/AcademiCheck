@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --yabatech-green: #1a4d2e;
+    --yabatech-green-dark: #0f2d1a;
+    --yabatech-green-mid: #2d6a42;
+    --yabatech-green-light: #e8f3ec;
+    --yabatech-gold: #c9a84c;
+    --yabatech-gold-light: #e8c96a;
+    --yabatech-gold-muted: #8a6f2e;
+    --color-surface: #f7f5f0;
+    --color-surface-alt: #eeebe3;
+    --color-white: #ffffff;
+    --color-border: #c8c4b0;
+    --color-text-primary: #1a1a1a;
+    --color-text-muted: #5a5a5a;
+    --color-red: #8b1a1a;
+    --color-green-ok: #1a4d2e;
+    --color-amber: #b8830a;
+
+    /* shadcn compat */
+    --background: 0 0% 97%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 150 49% 20%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 50% 80%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 40 20% 93%;
+    --muted-foreground: 0 0% 36%;
+    --accent: 45 50% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 20% 80%;
+    --input: 40 20% 80%;
+    --ring: 150 49% 20%;
+    --radius: 0.125rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  h1, h2, h3, h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+  }
+}

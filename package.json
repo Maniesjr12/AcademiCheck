@@ -1,0 +1,84 @@
+{
+  "name": "integrity-checker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "db:push": "npx prisma db push",
+    "db:studio": "npx prisma studio",
+    "db:generate": "npx prisma generate",
+    "worker": "tsx src/workers/detection.worker.ts"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "module": "commonjs",
+            "moduleResolution": "node"
+          }
+        }
+      ]
+    },
+    "testMatch": [
+      "**/*.test.ts",
+      "**/*.test.tsx"
+    ]
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "@auth/prisma-adapter": "^2.7.2",
+    "@aws-sdk/client-s3": "^3.1019.0",
+    "@aws-sdk/s3-request-presigner": "^3.1019.0",
+    "@prisma/client": "^5.22.0",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "bcryptjs": "^2.4.3",
+    "bullmq": "^5.71.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "compromise": "^14.15.0",
+    "ioredis": "^5.10.1",
+    "lucide-react": "^0.454.0",
+    "mammoth": "^1.12.0",
+    "natural": "^8.1.1",
+    "next": "^15.5.14",
+    "next-auth": "^5.0.0-beta.25",
+    "pdf-parse": "1.1.1",
+    "puppeteer": "^24.40.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29",
+    "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3",
+    "jest": "^29",
+    "postcss": "^8",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.1",
+    "ts-jest": "^29",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}

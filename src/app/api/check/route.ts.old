@@ -1,0 +1,101 @@
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+
+interface CheckRequestBody {
+  content?: string;
+  filename?: string;
+}
+
+interface PlaceholderSource {
+  title: string;
+  url: string;
+  matchPercentage: number;
+  excerpt: string;
+}
+
+function generatePlaceholderSources(score: number): PlaceholderSource[] {
+  if (score < 15) return [];
+
+  return [
+    {
+      title: "Wikipedia - Academic Integrity",
+      url: "https://en.wikipedia.org/wiki/Academic_integrity",
+      matchPercentage: Math.round(score * 0.6),
+      excerpt: "Academic integrity is the moral code or ethical policy of academia...",
+    },
+    {
+      title: "Example Academic Paper",
+      url: "https://example.com/paper-1",
+      matchPercentage: Math.round(score * 0.3),
+      excerpt: "This paper explores the fundamental concepts of research methodology...",
+    },
+    {
+      title: "Online Educational Resource",
+      url: "https://example.com/resource-2",
+      matchPercentage: Math.round(score * 0.1),
+      excerpt: "Educational resources provide students with the tools needed...",
+    },
+  ].filter((s) => s.matchPercentage > 0);
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
+    }
+
+    const body: CheckRequestBody = await req.json();
+    const { content, filename } = body;
+
+    if (!content && !filename) {
+      return NextResponse.json(
+        { error: "Content or filename is required" },
+        { status: 400 }
+      );
+    }
+
+    if (content && typeof content !== "string") {
+      return NextResponse.json({ error: "Content must be a string" }, { status: 400 });
+    }
+
+    if (content && content.trim().length < 50) {
+      return NextResponse.json(
+        { error: "Content must be at least 50 characters for analysis" },
+        { status: 400 }
+      );
+    }
+
+    // Generate placeholder similarity score (10-45%)
+    const similarityScore = Math.round(Math.random() * 35 + 10);
+    const sources = generatePlaceholderSources(similarityScore);
+
+    const check = await prisma.check.create({
+      data: {
+        userId: session.user.id,
+        content: content?.trim() ?? null,
+        filename: filename ?? null,
+        status: "completed",
+        similarityScore,
+        sources,
+      },
+    });
+
+    return NextResponse.json(
+      {
+        id: check.id,
+        similarityScore: check.similarityScore,
+        status: check.status,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Check creation error:", error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred. Please try again." },
+      { status: 500 }
+    );
+  }
+}

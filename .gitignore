@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+# Keep .env out of version control, but keep .env.example
+.env
+.env.*.local
+.next
+# Build Output
+# TypeScript compilation output (standard defaults)
+dist/
+build/
+out/
+CLAUDE.md
+# Testing
+# Jest coverage reports
+coverage/
+.nyc_output/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Prisma
+# Ignore auto-generated SQLite DBs if you use them locally, but keep the schema
+*.db
+*.db-journal
+
+# AI / Assistant Tools
+.claude/
+.claude-flow/
+
+# Editor and OS Specific
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Optional: PM2 (since you have ecosystem.config.js)
+.pm2/
+.vercel

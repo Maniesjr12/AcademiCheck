@@ -576,7 +576,7 @@ function FullReport({ data }: { data: SubmissionData }) {
           <span className="ml-4 font-mono">{data.id.slice(0, 12)}&hellip;</span>
         </nav>
 
-        {/* Section A — Summary */}
+        {/* Section A  Summary */}
         <section className="mb-10">
           <SectionHeading>Summary</SectionHeading>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
@@ -600,7 +600,7 @@ function FullReport({ data }: { data: SubmissionData }) {
           </div>
         </section>
 
-        {/* Section B — Source Matches */}
+        {/* Section B  Source Matches */}
         <section className="mb-10">
           <SectionHeading>
             Source Matches
@@ -626,7 +626,7 @@ function FullReport({ data }: { data: SubmissionData }) {
           )}
         </section>
 
-        {/* Section C — Document Analysis */}
+        {/* Section C  Document Analysis */}
         <section className="mb-10">
           <SectionHeading>Document Analysis</SectionHeading>
           <div className="pt-2">

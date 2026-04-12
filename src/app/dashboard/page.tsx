@@ -29,11 +29,14 @@ interface SubmissionRow {
   } | null;
 }
 
-const STATUS_STYLES: Record<SubmissionRow["status"], { bg: string; color: string; label: string }> = {
-  PENDING:    { bg: "#f3f4f6", color: "#6b7280", label: "Pending" },
+const STATUS_STYLES: Record<
+  SubmissionRow["status"],
+  { bg: string; color: string; label: string }
+> = {
+  PENDING: { bg: "#f3f4f6", color: "#6b7280", label: "Pending" },
   PROCESSING: { bg: "#fef3c7", color: "#92400e", label: "Processing" },
-  COMPLETE:   { bg: "#d1fae5", color: "#065f46", label: "Complete" },
-  FAILED:     { bg: "#fee2e2", color: "#991b1b", label: "Failed" },
+  COMPLETE: { bg: "#d1fae5", color: "#065f46", label: "Complete" },
+  FAILED: { bg: "#fee2e2", color: "#991b1b", label: "Failed" },
 };
 
 function formatDate(dateString: string): string {
@@ -63,7 +66,9 @@ export default function DashboardPage() {
     fetch("/api/submissions")
       .then((r) => r.json())
       .then((data: unknown) => {
-        setHistory(Array.isArray(data) ? (data as SubmissionRow[]).slice(0, 5) : []);
+        setHistory(
+          Array.isArray(data) ? (data as SubmissionRow[]).slice(0, 5) : []
+        );
         setHistoryLoading(false);
       })
       .catch(() => setHistoryLoading(false));
@@ -97,7 +102,9 @@ export default function DashboardPage() {
     setError(null);
     const extension = "." + file.name.split(".").pop()?.toLowerCase();
     if (!acceptedFileTypes.includes(extension)) {
-      setError("Unsupported file type. Please upload a PDF, DOCX, or TXT file.");
+      setError(
+        "Unsupported file type. Please upload a PDF, DOCX, or TXT file."
+      );
       return;
     }
     if (file.size > 10 * 1024 * 1024) {
@@ -119,7 +126,8 @@ export default function DashboardPage() {
     setIsSubmitting(true);
     try {
       const trimmed = textContent.trim();
-      const title = trimmed.length > 60 ? trimmed.substring(0, 60) + "..." : trimmed;
+      const title =
+        trimmed.length > 60 ? trimmed.substring(0, 60) + "..." : trimmed;
       const response = await fetch("/api/submissions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -183,9 +191,12 @@ export default function DashboardPage() {
         <nav className="text-xs text-gray-400 mb-2">
           Dashboard &rsaquo; Submit Document
         </nav>
-        <h2 className="text-xl font-bold text-[#1a4d2e]">Submit Document for Analysis</h2>
+        <h2 className="text-xl font-bold text-[#1a4d2e]">
+          Submit Document for Analysis
+        </h2>
         <p className="text-sm text-gray-500 mt-1">
-          Paste text or upload a document to run a plagiarism and similarity check.
+          Paste text or upload a document to run a plagiarism and similarity
+          check.
         </p>
       </div>
 
@@ -193,9 +204,9 @@ export default function DashboardPage() {
       <div className="flex items-start gap-2 bg-blue-50 border border-blue-200 rounded p-3 text-sm text-blue-700">
         <Info className="h-4 w-4 mt-0.5 shrink-0" />
         <span>
-          All submissions are logged and subject to the university&apos;s data retention policy.
-          Do not submit documents containing personally identifiable student information without
-          appropriate consent.
+          All submissions are logged and subject to the university&apos;s data
+          retention policy. Do not submit documents containing personally
+          identifiable student information without appropriate consent.
         </span>
       </div>
 
@@ -204,7 +215,10 @@ export default function DashboardPage() {
         {/* Tabs */}
         <div className="flex border-b border-gray-200">
           <button
-            onClick={() => { setActiveTab("text"); setError(null); }}
+            onClick={() => {
+              setActiveTab("text");
+              setError(null);
+            }}
             className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
               activeTab === "text"
                 ? "border-[#1a4d2e] text-[#1a4d2e] bg-white"
@@ -215,7 +229,10 @@ export default function DashboardPage() {
             Paste Text
           </button>
           <button
-            onClick={() => { setActiveTab("file"); setError(null); }}
+            onClick={() => {
+              setActiveTab("file");
+              setError(null);
+            }}
             className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
               activeTab === "file"
                 ? "border-[#1a4d2e] text-[#1a4d2e] bg-white"
@@ -282,13 +299,16 @@ export default function DashboardPage() {
             <form onSubmit={handleFileSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Document Title <span className="font-normal text-gray-400">(optional — defaults to filename)</span>
+                  Document Title{" "}
+                  <span className="font-normal text-gray-400">
+                    (optional defaults to filename)
+                  </span>
                 </label>
                 <input
                   type="text"
                   value={fileTitle}
                   onChange={(e) => setFileTitle(e.target.value)}
-                  placeholder="e.g. HIST3201 Essay — Week 8"
+                  placeholder="e.g. HIST3201 Essay Week 8"
                   maxLength={500}
                   className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a4d2e]/20 focus:border-[#1a4d2e] text-gray-900 placeholder:text-gray-400"
                 />
@@ -320,9 +340,12 @@ export default function DashboardPage() {
                   {selectedFile ? (
                     <div className="space-y-1">
                       <CheckCircle className="h-8 w-8 text-green-600 mx-auto" />
-                      <p className="font-medium text-gray-800 text-sm">{selectedFile.name}</p>
+                      <p className="font-medium text-gray-800 text-sm">
+                        {selectedFile.name}
+                      </p>
                       <p className="text-xs text-gray-500">
-                        {(selectedFile.size / 1024).toFixed(1)} KB — Click to change
+                        {(selectedFile.size / 1024).toFixed(1)} KB Click to
+                        change
                       </p>
                     </div>
                   ) : (
@@ -366,7 +389,9 @@ export default function DashboardPage() {
       {/* Recent Submissions */}
       <div className="bg-white border border-gray-200 rounded shadow-sm">
         <div className="border-b border-gray-200 px-6 py-3 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-700">Submission History</h3>
+          <h3 className="text-sm font-semibold text-gray-700">
+            Submission History
+          </h3>
           <span className="text-xs text-gray-400">5 most recent</span>
         </div>
         <div className="p-6">
@@ -375,14 +400,30 @@ export default function DashboardPage() {
           ) : history.length === 0 ? (
             <div className="text-center py-8 text-gray-400">
               <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
-              <p className="text-sm italic">No submissions yet. Your submission history will appear here.</p>
+              <p className="text-sm italic">
+                No submissions yet. Your submission history will appear here.
+              </p>
             </div>
           ) : (
             <>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+              <table
+                style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  fontSize: "13px",
+                }}
+              >
                 <thead>
                   <tr style={{ backgroundColor: "#1a4d2e", color: "#ffffff" }}>
-                    {(["Title", "Date", "Similarity", "Status", "Action"] as const).map((h) => (
+                    {(
+                      [
+                        "Title",
+                        "Date",
+                        "Similarity",
+                        "Status",
+                        "Action",
+                      ] as const
+                    ).map((h) => (
                       <th
                         key={h}
                         scope="col"
@@ -410,40 +451,77 @@ export default function DashboardPage() {
                       padding: "8px 12px",
                     };
                     const s = STATUS_STYLES[row.status];
-                    const sim = row.status === "COMPLETE" && row.report != null
-                      ? row.report.similarityScore
-                      : null;
-                    const simColor = sim == null ? "#9ca3af"
-                      : sim < 0.2 ? "#2d6a2d"
-                      : sim < 0.5 ? "#b8974a"
-                      : "#8b1a1a";
+                    const sim =
+                      row.status === "COMPLETE" && row.report != null
+                        ? row.report.similarityScore
+                        : null;
+                    const simColor =
+                      sim == null
+                        ? "#9ca3af"
+                        : sim < 0.2
+                        ? "#2d6a2d"
+                        : sim < 0.5
+                        ? "#b8974a"
+                        : "#8b1a1a";
                     const titleDisplay = row.title
-                      ? row.title.length > 50 ? row.title.substring(0, 50) + "…" : row.title
+                      ? row.title.length > 50
+                        ? row.title.substring(0, 50) + "…"
+                        : row.title
                       : "Untitled submission";
 
                     return (
                       <tr
                         key={row.id}
                         style={{ backgroundColor: rowBg }}
-                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#f0f2f7"; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = rowBg; }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = "#f0f2f7";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = rowBg;
+                        }}
                       >
                         <td style={td}>
                           <a
                             href={`/results/${row.id}`}
-                            style={{ fontFamily: "Georgia, serif", color: "#1a4d2e", textDecoration: "none" }}
-                            onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+                            style={{
+                              fontFamily: "Georgia, serif",
+                              color: "#1a4d2e",
+                              textDecoration: "none",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.textDecoration =
+                                "underline";
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.textDecoration = "none";
+                            }}
                           >
                             {titleDisplay}
                           </a>
                         </td>
-                        <td style={{ ...td, color: "#5a5a5a" }}>{formatDate(row.createdAt)}</td>
-                        <td style={{ ...td, color: simColor, fontWeight: sim != null ? 500 : undefined }}>
-                          {sim != null ? `${Math.round(sim * 100)}%` : "—"}
+                        <td style={{ ...td, color: "#5a5a5a" }}>
+                          {formatDate(row.createdAt)}
+                        </td>
+                        <td
+                          style={{
+                            ...td,
+                            color: simColor,
+                            fontWeight: sim != null ? 500 : undefined,
+                          }}
+                        >
+                          {sim != null ? `${Math.round(sim * 100)}%` : "-"}
                         </td>
                         <td style={td}>
-                          <span style={{ background: s.bg, color: s.color, padding: "2px 7px", borderRadius: "3px", fontSize: "11px", fontWeight: 500 }}>
+                          <span
+                            style={{
+                              background: s.bg,
+                              color: s.color,
+                              padding: "2px 7px",
+                              borderRadius: "3px",
+                              fontSize: "11px",
+                              fontWeight: 500,
+                            }}
+                          >
                             {s.label}
                           </span>
                         </td>
@@ -451,14 +529,23 @@ export default function DashboardPage() {
                           {row.status === "COMPLETE" ? (
                             <a
                               href={`/results/${row.id}`}
-                              style={{ color: "#1a4d2e", fontSize: "12px", textDecoration: "none" }}
-                              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-                              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+                              style={{
+                                color: "#1a4d2e",
+                                fontSize: "12px",
+                                textDecoration: "none",
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.textDecoration =
+                                  "underline";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.textDecoration = "none";
+                              }}
                             >
                               View
                             </a>
                           ) : (
-                            <span style={{ color: "#9ca3af" }}>—</span>
+                            <span style={{ color: "#9ca3af" }}>-</span>
                           )}
                         </td>
                       </tr>
@@ -467,9 +554,21 @@ export default function DashboardPage() {
                 </tbody>
               </table>
               <div style={{ textAlign: "right", marginTop: "8px" }}>
-                <a href="/history" style={{ fontSize: "12px", color: "#1a4d2e", textDecoration: "none" }}
-                  onMouseEnter={(e) => { (e.target as HTMLAnchorElement).style.textDecoration = "underline"; }}
-                  onMouseLeave={(e) => { (e.target as HTMLAnchorElement).style.textDecoration = "none"; }}
+                <a
+                  href="/history"
+                  style={{
+                    fontSize: "12px",
+                    color: "#1a4d2e",
+                    textDecoration: "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLAnchorElement).style.textDecoration =
+                      "underline";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLAnchorElement).style.textDecoration =
+                      "none";
+                  }}
                 >
                   View all submissions →
                 </a>

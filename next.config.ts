@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["pdf-parse", "mammoth", "@prisma/client", "bcryptjs"],
-  experimental: {
-    serverComponentsExternalPackages: ["@prisma/client", "bcryptjs"],
-  },
   images: {
     remotePatterns: [
       {

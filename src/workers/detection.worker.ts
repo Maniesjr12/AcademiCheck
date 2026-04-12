@@ -86,7 +86,7 @@ const worker = new Worker<{ submissionId: string }>(
             similarityScore: plagiarismResult.overallScore,
             aiScore: aiResult.overallScore,
             aiConfidence: aiResult.confidence,
-            sentenceScores: aiResult.sentenceScores,
+            sentenceScores: aiResult.sentenceScores as unknown as Parameters<typeof tx.report.upsert>[0]["update"]["sentenceScores"],
             processingTimeMs,
           },
           create: {
@@ -94,7 +94,7 @@ const worker = new Worker<{ submissionId: string }>(
             similarityScore: plagiarismResult.overallScore,
             aiScore: aiResult.overallScore,
             aiConfidence: aiResult.confidence,
-            sentenceScores: aiResult.sentenceScores,
+            sentenceScores: aiResult.sentenceScores as unknown as Parameters<typeof tx.report.upsert>[0]["create"]["sentenceScores"],
             processingTimeMs,
           },
         });

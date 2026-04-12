@@ -224,8 +224,7 @@ function PageHeader({
 function PageFooter() {
   return (
     <footer className="bg-[#1a4d2e] text-white/40 text-xs py-4 text-center">
-      &copy; {new Date().getFullYear()} Yaba College of Technology &mdash;
-      Academic Integrity Portal &mdash; For authorised staff use only
+      &copy; {new Date().getFullYear()} Yaba College of Technology Academic Integrity Portal For authorised staff use only
     </footer>
   );
 }

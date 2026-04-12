@@ -23,14 +23,16 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center p-6">
-        {/* Crest + title */}
-        <div style={{ textAlign: "center", marginBottom: "24px" }}>
-          <YabatechShield width={56} height={66} style={{ display: "block", margin: "0 auto" }} />
-          <div style={{ fontFamily: "Georgia, serif", fontSize: "26px", color: "#1a4d2e", marginTop: "10px" }}>YABATECH</div>
-          <div style={{ fontSize: "12px", color: "#5a5a5a", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "4px" }}>Academic Integrity Portal</div>
-          <div style={{ width: "48px", height: "2px", background: "#c9a84c", margin: "16px auto 0" }} />
+        <div style={{ width: "100%", maxWidth: "380px" }}>
+          {/* Crest + title */}
+          <div style={{ textAlign: "center", marginBottom: "24px" }}>
+            <YabatechShield width={56} height={66} style={{ display: "block", margin: "0 auto" }} />
+            <div style={{ fontFamily: "Georgia, serif", fontSize: "26px", color: "#1a4d2e", marginTop: "10px" }}>YABATECH</div>
+            <div style={{ fontSize: "12px", color: "#5a5a5a", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "4px" }}>Academic Integrity Portal</div>
+            <div style={{ width: "48px", height: "2px", background: "#c9a84c", margin: "16px auto 0" }} />
+          </div>
+          {children}
         </div>
-        {children}
       </main>
 
       {/* Footer strip */}

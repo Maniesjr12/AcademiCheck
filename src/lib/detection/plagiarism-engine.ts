@@ -220,7 +220,9 @@ async function searchGoogle(sentence: string): Promise<SearchResult[]> {
 
   let data: GoogleSearchResponse;
   try {
-    data = (await fetchJson(url)) as GoogleSearchResponse;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    data = (await res.json()) as GoogleSearchResponse;
   } catch {
     return [];
   }

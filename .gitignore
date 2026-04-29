@@ -42,3 +42,4 @@ Thumbs.db
 # Optional: PM2 (since you have ecosystem.config.js)
 .pm2/
 .vercel
+

@@ -432,10 +432,18 @@ function AnnotatedDocument({
     );
   }
 
-  const segments =
-    matchedSources.length === 0 && sentenceScores.length === 0
-      ? [{ text: fullText, isPlagiarism: false, isAi: false }]
-      : buildAnnotationMap(fullText, matchedSources, sentenceScores);
+  const hasAiFlags = sentenceScores.some((ss) => ss.isAi);
+  const hasMatches = matchedSources.length > 0;
+
+  if (!hasAiFlags && !hasMatches) {
+    return (
+      <p className="text-sm text-gray-500 pt-2">
+        No flagged passages identified in this submission.
+      </p>
+    );
+  }
+
+  const segments = buildAnnotationMap(fullText, matchedSources, sentenceScores);
 
   return (
     <>
